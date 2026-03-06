@@ -2,14 +2,14 @@
     $isEdit = isset($task);
 @endphp
 
-<div class="space-y-6">
+<div class="space-y-8">
     <div class="group">
-        <label for="title" class="mb-2 block text-sm font-bold text-slate-700 tracking-wide">Task Title</label>
+        <label for="title" class="mb-2 block text-sm font-black text-slate-700 tracking-wider uppercase">Task Title</label>
         <input type="text"
                id="title"
                name="title"
                value="{{ old('title', $task->title ?? '') }}"
-               class="w-full rounded-2xl border border-white/60 bg-white/50 px-5 py-3.5 text-sm shadow-sm outline-none transition-all duration-300 focus:border-blue-400 focus:ring-4 focus:ring-blue-100 placeholder:text-slate-400"
+               class="w-full rounded-2xl border border-white/40 bg-white/40 px-6 py-4 text-sm shadow-inner outline-none transition-all duration-300 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 placeholder:text-slate-400 font-medium"
                placeholder="What needs to be done?"
                required>
         @error('title')
@@ -23,11 +23,11 @@
     </div>
 
     <div>
-        <label for="description" class="mb-2 block text-sm font-bold text-slate-700 tracking-wide">Description</label>
+        <label for="description" class="mb-2 block text-sm font-black text-slate-700 tracking-wider uppercase">Description</label>
         <textarea id="description"
                   name="description"
                   rows="4"
-                  class="w-full rounded-2xl border border-white/60 bg-white/50 px-5 py-3.5 text-sm shadow-sm outline-none transition-all duration-300 focus:border-blue-400 focus:ring-4 focus:ring-blue-100 placeholder:text-slate-400"
+                  class="w-full rounded-2xl border border-white/40 bg-white/40 px-6 py-4 text-sm shadow-inner outline-none transition-all duration-300 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 placeholder:text-slate-400 font-medium"
                   placeholder="Add some details about this task...">{{ old('description', $task->description ?? '') }}</textarea>
         @error('description')
             <p class="mt-2 text-xs font-bold text-rose-500 flex items-center gap-1">
@@ -39,20 +39,20 @@
         @enderror
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         @if ($isEdit)
             <div>
-                <label for="status" class="mb-2 block text-sm font-bold text-slate-700 tracking-wide">Status</label>
+                <label for="status" class="mb-2 block text-sm font-black text-slate-700 tracking-wider uppercase">Status</label>
                 <div class="relative">
                     <select id="status"
                             name="status"
-                            class="w-full appearance-none rounded-2xl border border-white/60 bg-white/50 px-5 py-3.5 text-sm shadow-sm outline-none transition-all duration-300 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                            class="w-full appearance-none rounded-2xl border border-white/40 bg-white/40 px-6 py-4 text-sm shadow-inner outline-none transition-all duration-300 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 font-bold text-slate-700"
                             required>
                         <option value="todo" @selected(old('status', $task->status) === 'todo')>Todo</option>
                         <option value="in_progress" @selected(old('status', $task->status) === 'in_progress')>In Progress</option>
                         <option value="done" @selected(old('status', $task->status) === 'done')>Done</option>
                     </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-slate-400">
                         <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 7.293 8.172 5.879 9.586z"/></svg>
                     </div>
                 </div>
@@ -63,25 +63,25 @@
         @endif
 
         <div>
-            <label for="deadline" class="mb-2 block text-sm font-bold text-slate-700 tracking-wide">Deadline</label>
+            <label for="deadline" class="mb-2 block text-sm font-black text-slate-700 tracking-wider uppercase">Deadline</label>
             <input type="date"
                    id="deadline"
                    name="deadline"
                    value="{{ old('deadline', isset($task->deadline) ? $task->deadline->format('Y-m-d') : '') }}"
-                   class="w-full rounded-2xl border border-white/60 bg-white/50 px-5 py-3.5 text-sm shadow-sm outline-none transition-all duration-300 focus:border-blue-400 focus:ring-4 focus:ring-blue-100">
+                   class="w-full rounded-2xl border border-white/40 bg-white/40 px-6 py-4 text-sm shadow-inner outline-none transition-all duration-300 focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 font-bold text-slate-700">
             @error('deadline')
                 <p class="mt-2 text-xs font-bold text-rose-500">{{ $message }}</p>
             @enderror
         </div>
     </div>
 
-    <div class="flex items-center gap-4 pt-6">
+    <div class="flex items-center gap-6 pt-8">
         <button type="submit"
-                class="flex-grow md:flex-none px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-sm shadow-xl shadow-blue-500/30 transition-all duration-300 hover:scale-[1.02] active:scale-95">
-            {{ $isEdit ? 'Save Changes' : 'Create Task' }}
+                class="flex-grow md:flex-none px-12 py-5 bg-[#4f46e5] hover:bg-[#4338ca] text-white rounded-2xl font-black text-sm shadow-xl shadow-indigo-500/30 transition-all duration-300 hover:scale-105 active:scale-95 uppercase tracking-widest">
+            {{ $isEdit ? 'Update Task' : 'Create Task' }}
         </button>
         <a href="{{ route('tasks.index') }}"
-           class="px-8 py-4 bg-white/60 hover:bg-white/80 text-slate-600 rounded-2xl font-bold text-sm border border-white/60 transition-all duration-300 hover:scale-[1.02] active:scale-95 text-center">
+           class="px-10 py-5 bg-white/20 hover:bg-white/40 text-slate-600 rounded-2xl font-black text-sm border border-white/40 transition-all duration-300 hover:scale-105 active:scale-95 text-center uppercase tracking-widest">
             Cancel
         </a>
     </div>
