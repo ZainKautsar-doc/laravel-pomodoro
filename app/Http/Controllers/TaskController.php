@@ -79,4 +79,15 @@ class TaskController extends Controller
             ->route('tasks.index')
             ->with('success', 'Task berhasil dihapus.');
     }
+
+    public function complete(Task $task): RedirectResponse
+    {
+        $task->update([
+            'status' => 'done',
+        ]);
+
+        return redirect()
+            ->route('tasks.index')
+            ->with('success', 'Task ditandai selesai.');
+    }
 }
