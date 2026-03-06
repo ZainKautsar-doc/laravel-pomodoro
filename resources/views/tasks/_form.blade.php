@@ -1,0 +1,72 @@
+@php
+    $isEdit = isset($task);
+@endphp
+
+<div class="space-y-5">
+    <div>
+        <label for="title" class="mb-1 block text-sm font-medium text-slate-700">Title</label>
+        <input type="text"
+               id="title"
+               name="title"
+               value="{{ old('title', $task->title ?? '') }}"
+               class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+               placeholder="Contoh: Belajar Laravel Eloquent"
+               required>
+        @error('title')
+            <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <div>
+        <label for="description" class="mb-1 block text-sm font-medium text-slate-700">Description</label>
+        <textarea id="description"
+                  name="description"
+                  rows="4"
+                  class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                  placeholder="Detail belajar yang perlu diselesaikan">{{ old('description', $task->description ?? '') }}</textarea>
+        @error('description')
+            <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
+        @enderror
+    </div>
+
+    @if ($isEdit)
+        <div>
+            <label for="status" class="mb-1 block text-sm font-medium text-slate-700">Status</label>
+            <select id="status"
+                    name="status"
+                    class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    required>
+                <option value="todo" @selected(old('status', $task->status) === 'todo')>Todo</option>
+                <option value="in_progress" @selected(old('status', $task->status) === 'in_progress')>In Progress</option>
+                <option value="done" @selected(old('status', $task->status) === 'done')>Done</option>
+            </select>
+            @error('status')
+                <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
+            @enderror
+        </div>
+    @endif
+
+    <div>
+        <label for="deadline" class="mb-1 block text-sm font-medium text-slate-700">Deadline</label>
+        <input type="date"
+               id="deadline"
+               name="deadline"
+               value="{{ old('deadline', isset($task->deadline) ? $task->deadline->format('Y-m-d') : '') }}"
+               class="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+        @error('deadline')
+            <p class="mt-1 text-xs text-rose-600">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <div class="flex items-center gap-3 pt-2">
+        <button type="submit"
+                class="inline-flex items-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700">
+            {{ $isEdit ? 'Simpan Perubahan' : 'Simpan Task' }}
+        </button>
+        <a href="{{ route('tasks.index') }}"
+           class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">
+            Batal
+        </a>
+    </div>
+</div>
+
