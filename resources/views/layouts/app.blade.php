@@ -12,7 +12,7 @@
 
     <div class="relative mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         @if (session('success'))
-            <div class="fixed top-8 left-1/2 -translate-x-1/2 z-[60] animate-fade-in-down">
+            <div id="flash-message" class="fixed top-8 left-1/2 -translate-x-1/2 z-[60] transition-all duration-500 transform ease-in-out">
                 <div class="rounded-2xl border border-white/40 bg-white/80 px-6 py-3 text-sm font-bold text-indigo-800 shadow-xl shadow-indigo-900/10 backdrop-blur-md">
                     {{ session('success') }}
                 </div>
@@ -21,5 +21,21 @@
 
         @yield('content')
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                // Wait 3 seconds before starting the fade out
+                setTimeout(() => {
+                    flashMessage.classList.add('opacity-0', '-translate-y-4');
+                    // Completely remove from DOM after the transition finishes (500ms)
+                    setTimeout(() => {
+                        flashMessage.remove();
+                    }, 500);
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>

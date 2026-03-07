@@ -90,4 +90,15 @@ class TaskController extends Controller
             ->route('tasks.index')
             ->with('success', 'Task ditandai selesai.');
     }
+
+    public function start(Task $task): RedirectResponse
+    {
+        $task->update([
+            'status' => 'in_progress',
+        ]);
+
+        return redirect()
+            ->route('tasks.index')
+            ->with('success', 'Task sedang dikerjakan.');
+    }
 }
